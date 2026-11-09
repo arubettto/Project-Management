@@ -1,8 +1,0 @@
-tensorflow>=2.12
-ultralytics>=8.1
-scikit-learn
-matplotlib
-pandas
-pillow
-numpy
-python-pptx
