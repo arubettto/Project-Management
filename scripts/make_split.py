@@ -1,14 +1,3 @@
-"""Build train/validation/test (70/15/15) from a folder that has only good/ and bad/.
-
-  python scripts/make_split.py --seed <STUDENT_ID> --src data/quality_split --dst data/quality_split_ready
-
-Then train with  --data data/quality_split_ready  (and the same folder for YOLO).
-
-Leak protection: files that are variants of ONE source image (names ending in _v1, _v2, _v3 ...,
-e.g. bad_passport_glare_202_v1.jpg / ..._v2.jpg) are kept together in the same split.
-Also writes <dst>/../split_metadata.jsonl: filename, split, quality_label, defect
-(defect = 3rd '_' token of names like bad_<doc>_<defect>_<n>_v<k>; check it matches your names).
-"""
 import argparse, json, random, re, shutil
 from collections import defaultdict
 from pathlib import Path
