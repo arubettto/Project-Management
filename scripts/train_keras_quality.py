@@ -1,18 +1,3 @@
-"""Tasks 2 and 4: Keras transfer-learning classifier for the quality gate (good / bad).
-
-Task 2 (baseline):
-  python scripts/train_keras_quality.py --model mobilenetv2 --regime frozen --seed <STUDENT_ID> --week 6
-Task 4 (third model, pick one):
-  python scripts/train_keras_quality.py --model efficientnet_b0 --regime frozen --seed <STUDENT_ID> --week 8
-  python scripts/train_keras_quality.py --model resnet50        --regime frozen --seed <STUDENT_ID> --week 8
-  python scripts/train_keras_quality.py --model mobilenetv3large --regime frozen --seed <STUDENT_ID> --week 8
-  python scripts/train_keras_quality.py --model inceptionv3     --regime frozen --seed <STUDENT_ID> --week 8
-Bonus (fine-tuning, lr 1e-5):
-  python scripts/train_keras_quality.py --model mobilenetv2 --regime finetune --seed <STUDENT_ID> --week 8
-
-Fixed by the course: epochs 50, patience 5, batch 32, Adam lr 1e-3 (frozen), threshold 0.5,
-test split used ONLY for final evaluation.
-"""
 import argparse, inspect, os, sys, time
 from pathlib import Path
 
