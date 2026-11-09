@@ -1,13 +1,3 @@
-"""Task 3: YOLOv8 classification (yolov8n-cls and yolov8s-cls) on the SAME data/quality_split.
-
-Exact command (put it in your report):
-  python scripts/train_yolo_quality.py --seed <STUDENT_ID> --variants n s --week 7
-If CUDA runs out of memory:  add  --batch 16  and write that in the report.
-
-Fixed by the course: epochs 50, patience 5, imgsz 640, batch 32, seed = student ID.
-Metrics are computed by us (sklearn) on the TEST split from per-image predictions, so they are
-fractions (0.945, not 94.5).
-"""
 import argparse, csv, os, sys, time
 from pathlib import Path
 
