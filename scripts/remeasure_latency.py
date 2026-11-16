@@ -1,10 +1,5 @@
-"""Re-measure latency on CPU (the deployment target) and update results.json in place.
-Use it when you trained on a GPU but the budget (<100 ms) is for the CPU server.
-
-  python scripts/remeasure_latency.py results/mobilenetv2_frozen results/week7_yolov8n_cls ...
-"""
 import os, sys, json
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"           # hide GPU BEFORE importing TF / torch
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"    
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 import numpy as np

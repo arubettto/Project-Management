@@ -1,0 +1,11 @@
+{
+  "chosen": "efficientnet_b0_frozen",
+  "hardest_defect": "glare",
+  "any_pass": true,
+  "chosen_stats": {
+    "accuracy": 0.9944444444444445,
+    "f1_macro": 0.994444272971388,
+    "latency_ms_per_image": 96.17,
+    "model_size_mb": 18.135
+  }
+}

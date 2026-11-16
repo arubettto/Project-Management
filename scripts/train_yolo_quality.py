@@ -1,13 +1,3 @@
-"""Task 3: YOLOv8 classification (yolov8n-cls and yolov8s-cls) on the SAME data/quality_split.
-
-Exact command (put it in your report):
-  python scripts/train_yolo_quality.py --seed <STUDENT_ID> --variants n s --week 7
-If CUDA runs out of memory:  add  --batch 16  and write that in the report.
-
-Fixed by the course: epochs 50, patience 5, imgsz 640, batch 32, seed = student ID.
-Metrics are computed by us (sklearn) on the TEST split from per-image predictions, so they are
-fractions (0.945, not 94.5).
-"""
 import argparse, csv, os, sys, time
 from pathlib import Path
 
@@ -40,7 +30,7 @@ def _run(args, variant, exp, YOLO, torch):
     out = Path("results").resolve() / exp
     data = str(Path(args.data).resolve())
     kw = dict(data=data, epochs=args.epochs, patience=args.patience, imgsz=args.imgsz,
-              batch=args.batch, seed=args.seed, deterministic=True,
+              batch=args.batch, seed=args.seed, deterministic=True, workers=args.workers,
               project=str(out.parent), name=exp, exist_ok=True, plots=True)
     if args.device:
         kw["device"] = args.device
@@ -102,6 +92,7 @@ if __name__ == "__main__":
     ap.add_argument("--imgsz", type=int, default=640)
     ap.add_argument("--batch", type=int, default=32)
     ap.add_argument("--device", default=None, help="e.g. 0 or cpu (default: Ultralytics auto)")
+    ap.add_argument("--workers", type=int, default=4, help="dataloader workers (use 0 if Windows hangs)")
     ap.add_argument("--note", default="")
     a = ap.parse_args()
     for v in a.variants:

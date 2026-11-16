@@ -1,12 +1,3 @@
-"""Task 4: build everything ONLY from results/*/results.json (+ errors/ folders).
-
-  python scripts/collect_results.py --data data/quality_split --metadata data/metadata.jsonl
-
-Writes in reports/: comparison.md, comparison.csv, acc_vs_latency.png, acc_vs_size.png,
-confusion_matrices.png, failure_gallery/<exp>/*.png + <exp>.png, error_analysis.md,
-week8_decision_memo.md (+ decision_memo.md copy), decision_summary.json (used by slides).
-The decision memo is a DRAFT: read it, check the reasoning and edit it before submitting.
-"""
 import argparse, json, glob, shutil, sys
 from collections import Counter
 from pathlib import Path

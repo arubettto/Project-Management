@@ -1,0 +1,78 @@
+{
+  "experiment": "week7_yolov8n_cls",
+  "week": 7,
+  "model": "yolov8n-cls",
+  "regime": "pretrained_full_finetune",
+  "input_size": 640,
+  "seed": 123,
+  "device": "cpu",
+  "epochs_planned": 50,
+  "epochs_run": 7,
+  "train_time_s": 886.5,
+  "latency_ms_per_image": 33.26,
+  "latency_device": "cpu",
+  "model_size_mb": 2.826,
+  "params": 1440850,
+  "test_samples": 180,
+  "batch_size": 32,
+  "metrics": {
+    "accuracy": 0.9166666666666666,
+    "f1_macro": 0.9165404469722729,
+    "precision_macro": 0.9192025835299962,
+    "recall_macro": 0.9166666666666667,
+    "per_class": {
+      "bad": {
+        "precision": 0.9518072289156626,
+        "recall": 0.8777777777777778,
+        "f1": 0.9132947976878613,
+        "support": 90
+      },
+      "good": {
+        "precision": 0.8865979381443299,
+        "recall": 0.9555555555555556,
+        "f1": 0.9197860962566845,
+        "support": 90
+      }
+    }
+  },
+  "confusion_matrix": [
+    [
+      79,
+      11
+    ],
+    [
+      4,
+      86
+    ]
+  ],
+  "history": {
+    "loss": [
+      0.57027,
+      0.36908,
+      0.32555,
+      0.28989,
+      0.27636,
+      0.28299,
+      0.26274
+    ],
+    "val_loss": [
+      0.41274,
+      0.24959,
+      0.23296,
+      0.23508,
+      0.19377,
+      0.20971,
+      0.2295
+    ],
+    "val_accuracy": [
+      0.75556,
+      0.93333,
+      0.88333,
+      0.85556,
+      0.91667,
+      0.9,
+      0.91111
+    ]
+  },
+  "note": ""
+}

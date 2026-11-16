@@ -1,15 +1,3 @@
-"""Shared helpers for Tasks 2-4 (metrics, latency, results.json, errors, plots).
-
-Conventions used everywhere
----------------------------
-* Classes are ["bad", "good"] (alphabetical = Keras/YOLO index order: bad=0, good=1).
-* Confusion matrix rows = true class, columns = predicted class, order [bad, good].
-* All metrics are fractions in [0, 1] (never percents).
-* Model size MB = file size of the best checkpoint / (1024*1024).
-* Latency = mean ms per image over 100 timed single-image predictions after 20
-  warm-up predictions; the timed path is "PIL image in memory -> resize/normalise
-  -> forward pass -> probability" (file reading is excluded).
-"""
 import json, os, random, shutil, time, traceback
 from datetime import datetime
 from pathlib import Path
