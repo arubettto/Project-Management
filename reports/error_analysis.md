@@ -27,7 +27,3 @@
 ## Hardest defect overall
 
 **glare** (most failures summed over all models). Expected from the thesis: glare (F1 = 0.92). Check that your data agrees; if not, say so.
-
-## How to reduce it (WRITE 3-5 SENTENCES YOURSELF)
-
-TODO: which augmentation or data change would help for the hardest defect, and why (e.g. more glare variants with different position / intensity / size, glare on laminated pages, hard-negative mining from the errors above, real glare photos in train, threshold tuning).
