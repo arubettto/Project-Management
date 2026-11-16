@@ -1,3 +1,5 @@
 {"time": "2026-11-16T15:44:50", "experiment": "week7_yolov8n_cls", "status": "ok", "note": ""}
 {"time": "2026-11-16T17:27:50", "experiment": "week7_yolov8s_cls", "status": "ok", "note": ""}
 {"time": "2026-11-16T19:16:44", "experiment": "efficientnet_b0_frozen", "status": "ok", "note": ""}
+{"time": "2026-11-16T19:37:59", "experiment": "week7_yolov8n_cls", "status": "ok", "note": ""}
+{"time": "2026-11-16T19:52:18", "experiment": "efficientnet_b0_frozen", "status": "ok", "note": ""}
