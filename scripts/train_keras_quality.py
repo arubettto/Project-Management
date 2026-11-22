@@ -15,7 +15,6 @@ except Exception:  # Keras 3 without tf.keras legacy alias
 
 import qutils as Q
 
-# name -> (constructor, input size, preprocessing mode required by the model family)
 MODELS = {
     "mobilenetv2":      ("MobileNetV2",      224, "tf"),
     "efficientnet_b0":  ("EfficientNetB0",   224, "torch"),
@@ -23,7 +22,6 @@ MODELS = {
     "mobilenetv3large": ("MobileNetV3Large", 224, "tf"),
     "inceptionv3":      ("InceptionV3",      299, "tf"),
 }
-# families whose Keras implementation normalises the input INSIDE the model by default
 BUILTIN_PREPROC = {"efficientnet_b0", "mobilenetv3large"}
 
 
@@ -33,9 +31,9 @@ def build_base(name, weights):
     kwargs = dict(weights=weights, include_top=False, input_shape=(size, size, 3))
     if name in BUILTIN_PREPROC:
         if "include_preprocessing" in inspect.signature(ctor).parameters:
-            kwargs["include_preprocessing"] = False      # we apply the family mode ourselves
+            kwargs["include_preprocessing"] = False     
         else:
-            mode = None                                  # model normalises internally: feed raw 0-255
+            mode = None                                 
             print(f"NOTE: this Keras version's {ctor_name} normalises inputs internally; "
                   f"feeding raw 0-255 pixels (equivalent to the '{MODELS[name][2]}' mode).")
     base = ctor(**kwargs)
@@ -52,7 +50,7 @@ def build_model(base, regime):
     if regime == "frozen":
         base.trainable = False
         lr = 1e-3
-    else:  # finetune: unfreeze everything except BatchNorm, low lr
+    else:  
         base.trainable = True
         for l in base.layers:
             if isinstance(l, layers.BatchNormalization):
@@ -98,7 +96,6 @@ def run(args, exp):
     pre = make_preprocess(mode)
     print(f"Model={args.model} input={size}x{size} preprocessing mode={mode} regime={args.regime} seed={args.seed}")
 
-    # 2. generators (shuffle True only for train)
     def gen(split, shuffle):
         return ImageDataGenerator(preprocessing_function=pre).flow_from_directory(
             str(Q.split_dir(args.data, split)), target_size=(size, size), batch_size=args.batch,
@@ -106,35 +103,30 @@ def run(args, exp):
     train_g, val_g, test_g = gen("train", True), gen("validation", False), gen("test", False)
     assert train_g.class_indices == {"bad": 0, "good": 1}, train_g.class_indices
 
-    # 3-4. model + compile
     model, lr = build_model(base, args.regime)
     model.summary()
     ckpt = out / "best.keras"
     cbs = [EarlyStopping(monitor="val_loss", patience=args.patience, restore_best_weights=True),
            ModelCheckpoint(str(ckpt), monitor="val_loss", save_best_only=True)]
 
-    # 5. train
     t0 = time.perf_counter()
     h = model.fit(train_g, validation_data=val_g, epochs=args.epochs, callbacks=cbs, verbose=2)
     train_time = time.perf_counter() - t0
     history = {k: [float(x) for x in v] for k, v in h.history.items()}
     epochs_run = len(history["loss"])
 
-    # 6. TEST evaluation only now
     test_g.reset()
     probs = model.predict(test_g, verbose=0).ravel()
     y_true = np.asarray(test_g.classes)
     assert len(probs) == len(y_true), "generator/prediction length mismatch"
-    y_pred = (probs > 0.5).astype(int)                  # threshold fixed at 0.5
+    y_pred = (probs > 0.5).astype(int)               
     metrics, cm = Q.compute_metrics(y_true, y_pred)
     print(metrics); print("confusion matrix [rows=true bad,good]:", cm)
 
-    # 7. plots, 8. errors
     Q.plot_curves(history, out / "curves.png", f"{exp} (seed {args.seed})")
     Q.plot_confusion(cm, out / "confusion_matrix.png", f"{exp} - test")
     Q.copy_errors(test_g.filepaths, y_true, y_pred, out)
 
-    # 9. latency (20 warm-up + 100 timed), size, params
     test_items = Q.list_split(args.data, "test")
     imgs = Q.load_latency_images(test_items, args.seed)
 
@@ -145,7 +137,6 @@ def run(args, exp):
     gpus = tf.config.list_physical_devices("GPU")
     device = "gpu" if gpus else "cpu"
 
-    # 10. results.json
     res = Q.base_result(exp, args.week, args.model, args.regime, size, args.seed, device, args.epochs)
     res.update({
         "epochs_run": epochs_run, "train_time_s": round(train_time, 1),

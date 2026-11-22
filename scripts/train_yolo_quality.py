@@ -13,7 +13,7 @@ def read_history(csv_path):
     rows = [{k.strip(): v for k, v in r.items()} for r in rows]
     col = lambda name: [float(r[name]) for r in rows if r.get(name) not in (None, "")]
     hist = {"loss": col("train/loss"), "val_loss": col("val/loss"),
-            "val_accuracy": col("metrics/accuracy_top1")}   # fractions already (0-1)
+            "val_accuracy": col("metrics/accuracy_top1")}  
     return {k: v for k, v in hist.items() if v}, len(rows)
 
 
@@ -26,7 +26,7 @@ def run_variant(args, variant):
 
 def _run(args, variant, exp, YOLO, torch):
     Q.set_seed(args.seed)
-    Q.print_counts(args.data)                     # R1: same folders as Task 2, no re-splitting
+    Q.print_counts(args.data)                    
     out = Path("results").resolve() / exp
     data = str(Path(args.data).resolve())
     kw = dict(data=data, epochs=args.epochs, patience=args.patience, imgsz=args.imgsz,
@@ -44,7 +44,7 @@ def _run(args, variant, exp, YOLO, torch):
     best = out / "weights" / "best.pt"
     assert best.exists(), f"best.pt not found at {best}"
     model = YOLO(str(best))
-    names = model.names                           # {0: 'bad', 1: 'good'} - from folder names
+    names = model.names                          
     assert sorted(names.values()) == sorted(Q.CLASSES), f"class names must be good/bad, got {names}"
 
     # TEST evaluation only
@@ -62,7 +62,6 @@ def _run(args, variant, exp, YOLO, torch):
     Q.plot_confusion(cm, out / "confusion_matrix_test.png", f"{exp} - test")
     Q.copy_errors(paths, y_true, y_pred, out)
 
-    # latency: 20 warm-up + 100 timed, real test images, PIL in memory -> probabilities
     imgs = Q.load_latency_images(test_items, args.seed)
     latency = Q.measure_latency(lambda im: model.predict(im, imgsz=args.imgsz, verbose=False), imgs)
     device = f"cuda ({torch.cuda.get_device_name(0)})" if torch.cuda.is_available() and args.device != "cpu" else "cpu"

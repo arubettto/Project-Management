@@ -1,0 +1,4 @@
+file,true,pred
+data/quality_split_ready\test\bad\bad_inn_glare_077_v1.jpg,bad,good
+data/quality_split_ready\test\good\good_passport_039_v1.jpg,good,bad
+data/quality_split_ready\test\good\good_passport_124_v1.jpg,good,bad

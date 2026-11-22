@@ -26,7 +26,7 @@ def main():
     for label in ("good", "bad"):
         files = sorted(p for p in (src / label).iterdir() if p.suffix.lower() in EXT)
         groups = defaultdict(list)
-        for p in files:                                   # group variants of the same source image
+        for p in files:                                 
             groups[re.sub(r"_v\d+$", "", p.stem)].append(p)
         keys = sorted(groups); rng.shuffle(keys)
         n = len(files); target = {"train": 0.70 * n, "validation": 0.15 * n}

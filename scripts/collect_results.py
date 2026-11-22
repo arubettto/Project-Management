@@ -12,7 +12,6 @@ from PIL import Image
 import qutils as Q
 
 REPORTS = Path("reports")
-# acceptance criteria from the Task 1 memo (+ the course budget of the first gate)
 CRIT = {"accuracy": 0.91, "f1_macro": 0.90, "latency_ms_per_image": 100.0, "model_size_mb": 50.0}
 
 
@@ -77,7 +76,6 @@ def charts(df):
     fig.tight_layout(); fig.savefig(REPORTS / "confusion_matrices.png", dpi=140); plt.close(fig)
 
 
-# ---------- metadata / defects ----------
 FILE_KEYS = ["filename", "file", "file_name", "path", "image", "image_path", "img", "name"]
 DEFECT_KEYS = ["defect", "defect_type", "defects", "quality_issue", "issue", "defect_name", "label_name"]
 

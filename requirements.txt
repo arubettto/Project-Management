@@ -1,0 +1,5 @@
+tensorflow>=2.16
+scikit-learn
+matplotlib
+pillow
+opencv-python-headless
