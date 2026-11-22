@@ -26,4 +26,4 @@
 
 ## Hardest defect overall
 
-**glare** (most failures summed over all models). Expected from the thesis: glare (F1 = 0.92). Check that your data agrees; if not, say so.
+**glare** (most failures summed over all models). Expected from the thesis: glare (F1 = 0.92).
