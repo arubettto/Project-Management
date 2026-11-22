@@ -134,5 +134,93 @@
       "loss_gap": 0.008538643829524517
     },
     "init_from": "results/mobilenetv2_frozen/best.keras"
+  },
+  {
+    "regime": "augment_glare_frozen",
+    "model": "MobileNetV2",
+    "seed": 123,
+    "batch": 32,
+    "epochs_max": 50,
+    "patience": 5,
+    "split": "test",
+    "preprocess": "mobilenet_v2",
+    "timestamp": "2026-11-22T21:44:54",
+    "lr_head": 0.001,
+    "lr_finetune": null,
+    "augmentation": {
+      "glare": {
+        "enabled": true,
+        "target_regex": "glare",
+        "p": 0.7,
+        "n_ellipses": [
+          1,
+          3
+        ],
+        "alpha": [
+          150,
+          230
+        ],
+        "size_frac": [
+          0.15,
+          0.5
+        ]
+      },
+      "motion_blur": {
+        "enabled": false,
+        "target_regex": "blur",
+        "p": 0.5,
+        "kernel": [
+          7,
+          21
+        ],
+        "angle": [
+          0,
+          180
+        ]
+      }
+    },
+    "augmentation_split": "train only",
+    "metrics": {
+      "accuracy": 0.9944444444444445,
+      "precision_macro": 0.9945054945054945,
+      "recall_macro": 0.9944444444444445,
+      "f1_macro": 0.994444272971388
+    },
+    "per_class": {
+      "bad": {
+        "precision": 1.0,
+        "recall": 0.9888888888888889,
+        "f1": 0.994413407821229,
+        "support": 90
+      },
+      "good": {
+        "precision": 0.989010989010989,
+        "recall": 1.0,
+        "f1": 0.994475138121547,
+        "support": 90
+      }
+    },
+    "confusion_matrix": [
+      [
+        89,
+        1
+      ],
+      [
+        0,
+        90
+      ]
+    ],
+    "glare_subset_accuracy": 0.9375,
+    "train_time_s": 188.02646398544312,
+    "train_val_gap": {
+      "best_epoch": 16,
+      "epochs_run": 21,
+      "train_acc": 0.9976190328598022,
+      "val_acc": 0.9833333492279053,
+      "acc_gap": 0.014285683631896973,
+      "train_loss": 0.01330880168825388,
+      "val_loss": 0.04337931051850319,
+      "loss_gap": 0.03007050883024931
+    }
   }
 ]
